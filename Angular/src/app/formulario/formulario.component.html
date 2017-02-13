@@ -1,0 +1,43 @@
+
+<form role="form" name="Formulario" class="form">
+
+    <div class="container">
+        <fieldset class="form-group">
+        <legend>Calcula tu sueldo</legend>
+            <div class="row">
+                <div class="col">
+                    <div class="form-control">
+                        <label for="sueldo">Sueldo</label>
+                        <input name="sueldo" id="sueldo" [(ngModel)]="sueldo" placeholder="20000" type="Number" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-control">
+                        <label for="impuesto">Irpf</label>
+                        <input name="impuesto" id="impuesto" [(ngModel)]="impuesto"  placeholder="12" type="Number" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-control">
+                        <label for="pagas">Pagas</label>
+                        <input name="pagas" id="pagas" [(ngModel)]="pagas"  placeholder="12" type="Number" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-success" (click)="onSelect()">Success</button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</form>
+
+<app-resultado [totales]='totals'></app-resultado>

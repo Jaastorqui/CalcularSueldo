@@ -1,0 +1,65 @@
+<section  [hidden]="!totales.contingencias" (change)="totales">
+
+    
+
+     <div class="container margin-top">
+        <div class="well">
+        <p>Se resume en Ingresos totales (Sueldo bruto anual) - Gastos (Impuestos)</p>
+        <h1>Gastos</h1>
+
+        <table class="table table-striped">
+        <tr>
+            <td>contingencias Comunes 4,7%: </td>
+            <td >{{totales.contingencias |  currency : 'EUR' }} €</td>
+        </tr>
+        <tr>
+            <td>desempleo 1,55%: </td>
+            <td>{{totales.desempleo |  currency : 'EUR' }} €</td>
+        </tr>
+        <tr>
+            <td>Formacion Profesional 0,1%: </td>
+            <td>{{totales.fp |  currency : 'EUR' }} €</td>
+        </tr>
+        <tr>
+            <th>Total contingencias: </th>
+            <th>{{totales.total_naturales |  currency : 'EUR' }} €</th>
+        </tr>
+        <tr>
+            <th>Total Irpf: </th>
+            <th>{{totales.impuesto_irpf |  currency : 'EUR' }} €</th>
+        </tr>
+    </table>
+
+            
+            <h4>Total Impuestos al mes: {{totales.total_impuestos | currency : 'EUR' }} €</h4>
+            <h2>Ingresos mensuales: {{totales.sueldo_final | currency : 'EUR' }} €</h2>
+            <p>Los ingresos son calculados a años completos, es decir, desde Enero hasta Diciembre.</p>
+            <p class="Cursive">En caso de no estar a año completo, se puede calcular mediante el minimo de <b>Irpf</b>, con lo que sería el propio trabajador el que debería ponerlo en orden.</p>
+
+            <!--		Parte de Paga extra	-->	 
+            <section  class="container">
+                <p>La parte de la paga extra, se calcula en función del salario / {{totales.paga + 12}} pagas ({{totales.paga}} Pagas extras), que en este caso es de {{totales.anual | currency : 'EUR' }}€</p>
+                
+                <p>Cada mes se guarda la cantidad de {{ totales.mes_extra | currency : 'EUR'}}€ para la paga extra, o lo que es lo mismo... Mes sin impuestos {{ totales.anual | currency : 'EUR' }} € - irpf  {{ totales.impuesto_irpf | currency : 'EUR' }} €  </p>
+                
+                <p><strong>Total</strong> = {{ totales.anual - totales.impuesto_irpf | currency : 'EUR' }} €.</p>
+                
+            </section>
+
+        </div>
+    </div>
+    
+      
+
+    <div style="display: block; width: 500px;height: 500px; margin: 0 auto">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+    </div>
+
+</section>

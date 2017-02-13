@@ -1,0 +1,19 @@
+{
+  "name": "jaastorqui",
+  "version": "1.0.0",
+  "description": "Aplicacion para calcular sueldo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jon Ander Astorqui",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "mongodb": "^2.2.22",
+    "mongojs": "^2.4.0",
+    "nodemon": "^1.11.0"
+  }
+}
