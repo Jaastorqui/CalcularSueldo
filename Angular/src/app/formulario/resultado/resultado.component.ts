@@ -13,25 +13,22 @@ export class ResultadoComponent implements OnInit {
   constructor(private mongoService: MongoService) {}
   @Input() totales:Resultado;
   private isVisible ;
-  private sueldo: Resultado[];
+  private sueldo;
+  private numeroSueldos;
+  public _sueldo;
 
     public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: false
   };
-  public barChartLabels:string[] = [ '2009', '2010', '2011', '2012'];
+  public barChartLabels:string[] = [ 'Sueldo'];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
  
   public barChartData:any[] = [
-    {data: [ 81, 56, 55, 40], label: 'Tu sueldo'},
-    {data: [ 19, 86, 27, 90], label: 'Media'}
+    {data: [ 20000 ], label: 'Tu sueldo'},
+    {data: [ 24000 ], label: 'Media'}
   ];
-
-
-  
- 
-  
 
   
 
@@ -43,38 +40,40 @@ export class ResultadoComponent implements OnInit {
 
 
   ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-    console.log(changes);
 
     if (changes['totales'].currentValue != null) {
-        let _sueldo = changes['totales'].currentValue.sueldo;
+        this._sueldo = changes['totales'].currentValue.sueldo;
+        this.mongoService.getMongo(this._sueldo)
+          .subscribe(
+            (sueldo) => this.sueldo = sueldo,
+            (error) => {}, 
+            () => {
 
-        this.mongoService.getMongo(_sueldo)
-          .subscribe(sueldo => this.sueldo = sueldo);
-
-           /*  CHARTS   */
-
-      
-        
-
-
-      
+              let sueldoMedio = this.calcularSueldo(this.sueldo);
+              /*  CHARTS   */
+              this.barChartLabels = [ 'Sueldo'];
+              this.barChartType = 'bar';
+              this.barChartLegend = true;
+    
+              this.barChartData = [
+                {data: [ this.sueldo ], label: 'Tu sueldo'},
+                {data: [ sueldoMedio ], label: 'Sueldo medio'}
+              ];
+              this.numeroSueldos = this.sueldo.length;
+            }
+          );
       }
   } 
 
+  calcularSueldo(sueldo) {
+    let _sueldo = sueldo;
+    let sum:number = 0;
+    _sueldo.length
+    _sueldo.forEach(elem => {  
+      sum = sum + elem.sueldo;
+    });
 
-  // events
-    public chartClicked(e:any):void {
-    console.log(e);
+    return sum / sueldo.length;
   }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
-
-
-
- 
-
-
 
 }

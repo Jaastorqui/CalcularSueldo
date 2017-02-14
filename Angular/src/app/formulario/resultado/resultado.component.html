@@ -51,7 +51,7 @@
     
       
 
-    <div style="display: block; width: 500px;height: 500px; margin: 0 auto">
+    <div style="display: block; width: 500px; margin: 0 auto">
     <canvas baseChart
             [datasets]="barChartData"
             [labels]="barChartLabels"
@@ -61,5 +61,5 @@
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
     </div>
-
+        <p style="display: block; margin: 0 auto">Se han insertado {{numeroSueldos}} sueldos</p>
 </section>
